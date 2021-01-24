@@ -31,6 +31,18 @@ services:
             - 5433:5433
         command: ["--connection", "${DATABASE_URL}", "--port", "5433", "--schema", "public", "--append-plugins", "postgraphile-plugin-connection-filter"]
 
+    pgadmin:
+        container_name: forum-example-pgadmin
+        image: dpage/pgadmin4
+        links:
+            - db
+        depends_on:
+            - db
+        environment:
+            - ./.env
+        ports:
+            - "5050:5050"
+
 networks:
     network:
 
